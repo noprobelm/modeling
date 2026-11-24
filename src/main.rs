@@ -3,14 +3,10 @@
 // Disable console on Windows for non-dev builds.
 #![cfg_attr(not(feature = "dev"), windows_subsystem = "windows")]
 
-mod asset_tracking;
-mod audio;
-mod demo;
 #[cfg(feature = "dev")]
 mod dev_tools;
-mod menus;
+mod kinematics;
 mod screens;
-mod theme;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
 
@@ -45,14 +41,9 @@ impl Plugin for AppPlugin {
 
         // Add other plugins.
         app.add_plugins((
-            asset_tracking::plugin,
-            audio::plugin,
-            demo::plugin,
             #[cfg(feature = "dev")]
             dev_tools::plugin,
-            menus::plugin,
-            screens::plugin,
-            theme::plugin,
+            screens::ScreenPlugin,
         ));
 
         // Order new `AppSystems` variants by adding them here:
