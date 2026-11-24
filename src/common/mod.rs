@@ -51,6 +51,28 @@ fn wait_for_textures(
     }
 }
 
+/// Position in meters. The source of truth for where a simulated object is; its [`Transform`]
+/// (in pixels) is derived from it using the display's pixels-per-meter scale.
+#[derive(Component, Debug, Copy, Clone)]
+#[require(Transform)]
+pub struct Position2d {
+    pub position: Vec2,
+}
+
+impl Position2d {
+    pub fn new(x: f32, y: f32) -> Self {
+        Position2d {
+            position: Vec2::new(x, y),
+        }
+    }
+
+    pub const fn zero() -> Self {
+        Position2d {
+            position: Vec2::ZERO,
+        }
+    }
+}
+
 #[derive(Component, Debug, Copy, Clone)]
 pub struct Velocity2d {
     pub velocity: Vec2,

@@ -6,12 +6,10 @@ use super::CameraAction;
 use crate::{input::InputButton, settings::Settings};
 
 /// Camera panning speed and keybindings, saved as `[camera]`.
-///
-/// Each action takes a list of buttons; any one of them triggers it. An empty list unbinds it.
 #[derive(Resource, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
 pub struct CameraSettings {
-    /// Pan speed in screen pixels per second, so panning feels the same at any zoom level.
+    /// Pan speed in screen pixels per second
     pub pan_speed: f32,
     pub pan_up: Vec<InputButton>,
     pub pan_left: Vec<InputButton>,
