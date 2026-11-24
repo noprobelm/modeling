@@ -3,7 +3,9 @@ mod settings;
 use bevy::prelude::*;
 
 pub use self::settings::Kinematics2dSettings;
-use crate::{Acceleration2d, Velocity2d, screens::Screen, settings::RegisterSettings};
+use crate::{
+    Acceleration2d, TextureMapper, Velocity2d, screens::Screen, settings::RegisterSettings,
+};
 
 pub(super) struct KinematicsPlugin;
 
@@ -11,7 +13,7 @@ impl Plugin for KinematicsPlugin {
     fn build(&self, app: &mut App) {
         app.register_settings::<Kinematics2dSettings>()
             .add_sub_state::<SimulationState>()
-            .add_systems(Startup, setup)
+            .add_systems(OnEnter(Screen::Kinematics2d), setup)
             .add_systems(
                 FixedUpdate,
                 solve.run_if(in_state(SimulationState::Running)),
@@ -50,7 +52,7 @@ impl AccelerationInitial {
     }
 }
 
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, textures: Res<TextureMapper>) {
     commands.spawn((
         PointObject,
         AccelerationInitial::zero(),
@@ -58,6 +60,10 @@ fn setup(mut commands: Commands) {
         VelocityInitial::zero(),
         Velocity2d::zero(),
         Transform::from_xyz(0., 0., 0.),
+        Sprite {
+            image: textures.ball_2d_128_128.clone(),
+            ..default()
+        },
     ));
 }
 

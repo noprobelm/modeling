@@ -10,6 +10,8 @@ impl Plugin for ScreenPlugin {
 
 #[derive(States, Copy, Clone, Debug, Default, Hash, Eq, PartialEq)]
 pub enum Screen {
+    /// Waiting for shared assets (see `common::TextureMapper`) to finish loading.
     #[default]
+    Loading,
     Kinematics2d,
 }
