@@ -10,7 +10,7 @@ impl Plugin for CommonPlugin {
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Sprite::from_image(
-        asset_server.load("kinematics/2d_kinematics_ball.png"),
+        asset_server.load("textures/2d_ball.png"),
     ));
 }
 
