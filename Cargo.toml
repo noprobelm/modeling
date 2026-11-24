@@ -10,8 +10,15 @@ bevy = { version = "0.20.1", default-features = false, features = [
     "2d",
     "ui",
     "audio",
+    # `Serialize`/`Deserialize` for `KeyCode` and `MouseButton`, used by keybinding settings.
+    "serialize",
 ] }
 bevy_egui = "0.43.1"
+# Keyboard and mouse only; gamepad and picking support aren't needed yet.
+leafwing-input-manager = { version = "0.22", default-features = false, features = [
+    "keyboard",
+    "mouse",
+] }
 rand = "0.9"
 serde = { version = "1", features = ["derive"] }
 # Compile out low-severity logs to improve performance.

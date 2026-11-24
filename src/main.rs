@@ -3,10 +3,12 @@
 // Disable console on Windows for non-dev builds.
 #![cfg_attr(not(feature = "dev"), windows_subsystem = "windows")]
 
+mod camera;
 mod common;
 #[cfg(feature = "dev")]
 mod dev_tools;
 mod grid;
+mod input;
 mod kinematics;
 mod screens;
 mod settings;
@@ -50,6 +52,7 @@ impl Plugin for AppPlugin {
             #[cfg(feature = "dev")]
             dev_tools::plugin,
             screens::ScreenPlugin,
+            camera::CameraPlugin,
             common::CommonPlugin,
             grid::GridPlugin,
             kinematics::KinematicsPlugin,
@@ -69,9 +72,6 @@ impl Plugin for AppPlugin {
         // Set up the `Pause` state.
         app.init_state::<Pause>();
         app.configure_sets(Update, PausableSystems.run_if(in_state(Pause(false))));
-
-        // Spawn the main camera.
-        app.add_systems(Startup, spawn_camera.spawn());
     }
 }
 
@@ -95,10 +95,3 @@ struct Pause(pub bool);
 /// A system set for systems that shouldn't run while the game is paused.
 #[derive(SystemSet, Copy, Clone, Eq, PartialEq, Hash, Debug)]
 struct PausableSystems;
-
-fn spawn_camera() -> impl Scene {
-    bsn! {
-        #Camera
-        Camera2d
-    }
-}
