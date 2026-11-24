@@ -11,5 +11,5 @@ impl Plugin for ScreenPlugin {
 #[derive(States, Copy, Clone, Debug, Default, Hash, Eq, PartialEq)]
 pub enum Screen {
     #[default]
-    TwoDimensionalKinematics,
+    Kinematics2d,
 }

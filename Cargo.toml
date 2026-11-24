@@ -13,6 +13,7 @@ bevy = { version = "0.20.1", default-features = false, features = [
 ] }
 bevy_egui = "0.43.1"
 rand = "0.9"
+serde = { version = "1", features = ["derive"] }
 # Compile out low-severity logs to improve performance.
 # Remove these features if you want to profile your game with tracy.
 # (see <https://github.com/bevyengine/bevy/blob/main/docs/profiling.md#tracy-profiler>)
@@ -23,6 +24,15 @@ tracing = { version = "0.1", features = [
 
 [target.wasm32-unknown-unknown.dependencies]
 getrandom = { version = "0.3", features = ["wasm_js"] }
+
+# Settings persistence (`src/settings/native.rs`). Web builds don't persist anything.
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+dirs = "7"
+# `preserve_order` keeps fields in declaration order instead of alphabetizing them.
+toml = { version = "1", features = ["preserve_order"] }
+
+[dev-dependencies]
+tempfile = "3"
 
 [features]
 # Default to a native dev build.

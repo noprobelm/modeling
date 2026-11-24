@@ -3,12 +3,15 @@
 // Disable console on Windows for non-dev builds.
 #![cfg_attr(not(feature = "dev"), windows_subsystem = "windows")]
 
+mod common;
 #[cfg(feature = "dev")]
 mod dev_tools;
 mod kinematics;
 mod screens;
+mod settings;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
+pub use common::*;
 
 fn main() -> AppExit {
     App::new().add_plugins(AppPlugin).run()
@@ -41,9 +44,13 @@ impl Plugin for AppPlugin {
 
         // Add other plugins.
         app.add_plugins((
+            // Must come before any plugin that registers settings.
+            settings::SettingsPlugin,
             #[cfg(feature = "dev")]
             dev_tools::plugin,
             screens::ScreenPlugin,
+            common::CommonPlugin,
+            kinematics::KinematicsPlugin,
         ));
 
         // Order new `AppSystems` variants by adding them here:
