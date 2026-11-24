@@ -3,7 +3,15 @@ use bevy::prelude::*;
 pub(super) struct CommonPlugin;
 
 impl Plugin for CommonPlugin {
-    fn build(&self, app: &mut App) {}
+    fn build(&self, app: &mut App) {
+        app.add_systems(Startup, setup);
+    }
+}
+
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+    commands.spawn(Sprite::from_image(
+        asset_server.load("kinematics/2d_kinematics_ball.png"),
+    ));
 }
 
 #[derive(Component, Debug, Copy, Clone)]
