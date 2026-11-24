@@ -6,6 +6,7 @@
 mod common;
 #[cfg(feature = "dev")]
 mod dev_tools;
+mod grid;
 mod kinematics;
 mod screens;
 mod settings;
@@ -50,6 +51,7 @@ impl Plugin for AppPlugin {
             dev_tools::plugin,
             screens::ScreenPlugin,
             common::CommonPlugin,
+            grid::GridPlugin,
             kinematics::KinematicsPlugin,
         ));
 
